@@ -1,0 +1,10 @@
+{
+  "name": "LoveLetterNative",
+  "interface": "reagent",
+  "androidHost": "localhost",
+  "iosHost": "localhost",
+  "modules": [],
+  "imageDirs": [
+    "images"
+  ]
+}
