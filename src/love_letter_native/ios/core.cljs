@@ -20,19 +20,23 @@
       (.alert (.-Alert js/React) title))
 
 (defn app-root []
-  (let [greeting (subscribe [:get-greeting])
-        t-input  (reagent.core/atom "")]
-    (fn []
-      [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-       [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
-       [image {:source logo-img
-               :style  {:width 80 :height 80 :margin-bottom 30}}]
-       [text-input {:style {:padding 5 :height 40  :border-color "gray" :border-width 2 :margin-bottom 15}
-                    :placeholder "Enter your name"
-                    :on-change-text #(reset! t-input %)}]
-       [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
-                             :on-press #(dispatch [:set-greeting @t-input])}
-        [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "press me"]]])))
+  (let [deck (subscribe [:deck])]
+  (fn []
+    [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
+     [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} "Love Letter iOS"]
+     [image {:source logo-img
+             :style  {:width 80 :height 80 :margin-bottom 30}}]
+     (map-indexed (fn [i deck]
+                    ^{:key i}
+                    [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}}
+             (str (:face deck) " " (:value deck))
+             ]) @deck)
+     [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} (str @deck)]
+     #_[text-input {:style {:padding 5 :height 40  :border-color "gray" :border-width 2 :margin-bottom 15}
+                  :placeholder "Enter your name"
+                  :on-change-text #()}]
+     #_[touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}}
+      [text {:style {:color "white" :text-align "center" :font-weight "bold"}} "presss me"]]])))
 
 (defn init []
       (dispatch-sync [:initialize-db])
