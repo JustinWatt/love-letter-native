@@ -1,6 +1,6 @@
 (ns love-letter-native.subs
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [re-frame.core :refer [register-sub]]
+  (:require [re-frame.core :refer [register-sub subscribe]]
             [love-letter-native.shared.game :refer [valid-targets]]))
 
 (register-sub
